@@ -30,7 +30,7 @@ fi
 echo $n > .n
 echo ""
 echo "Creating elastic search cluster with $n nodes ..."
-docker run -d -p 9200:9200 --hostname=node1 --name=node1 --net=es-bridge afterqcd/elasticsearch:v2.3.1 elasticsearch -Des.node.name=node1 -Des.cluster.name=test -Des.discovery.zen.ping.unicast.hosts=node1
+docker run -d -p 9200:9200 -p 9300:9300 --hostname=node1 --name=node1 --net=es-bridge afterqcd/elasticsearch:v2.3.1 elasticsearch -Des.node.name=node1 -Des.cluster.name=test -Des.discovery.zen.ping.unicast.hosts=node1
 
 for ((i=2; i<=$n; i++)); do
   nodename=node$i

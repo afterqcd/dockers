@@ -19,6 +19,7 @@ RUN mv /usr/elasticsearch-2.3.1 /usr/elasticsearch
 ENV PATH /usr/elasticsearch/bin:$PATH
 RUN plugin install license
 RUN plugin install -b marvel-agent
+ADD elasticsearch-analysis-ik-1.9.1.tar.gz /usr/elasticsearch/plugins/
 RUN chown -R elasticsearch:elasticsearch /usr/elasticsearch
 
 VOLUME /usr/elasticsearch/data
