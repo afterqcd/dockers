@@ -14,12 +14,12 @@ RUN gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4
 
 # Install elasticsearch
 RUN useradd elasticsearch
-ADD elasticsearch-2.3.1.tar.gz /usr/
+ADD https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/zip/elasticsearch/2.3.1/elasticsearch-2.3.1.zip /usr/
 RUN mv /usr/elasticsearch-2.3.1 /usr/elasticsearch
 ENV PATH /usr/elasticsearch/bin:$PATH
 RUN plugin install license
 RUN plugin install -b marvel-agent
-ADD elasticsearch-analysis-ik-1.9.1.tar.gz /usr/elasticsearch/plugins/
+ADD https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v1.9.1/elasticsearch-analysis-ik-1.9.1.zip /usr/elasticsearch/plugins/
 RUN chown -R elasticsearch:elasticsearch /usr/elasticsearch
 
 VOLUME /usr/elasticsearch/data
