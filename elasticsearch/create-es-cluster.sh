@@ -30,11 +30,11 @@ fi
 echo $n > .n
 echo ""
 echo "Creating elastic search cluster with $n nodes ..."
-docker run -d -p 9200:9200 -p 9300:9300 --hostname=node1 --name=node1 --net=es-bridge afterqcd/elasticsearch:v2.3.1 elasticsearch -Des.node.name=node1 -Des.cluster.name=test -Des.discovery.zen.ping.unicast.hosts=node1
+docker run -d -p 9200:9200 -p 9300:9300 --hostname=node1 --name=node1 --net=es-bridge afterqcd/elasticsearch:v2.3.1 elasticsearch -Des.node.name=node1 -Des.cluster.name=$cluster -Des.discovery.zen.ping.unicast.hosts=node1 -Des.script.engine.groovy.inline.update=on
 
 for ((i=2; i<=$n; i++)); do
   nodename=node$i
-  docker run -d --hostname=$nodename --name=$nodename --net=es-bridge afterqcd/elasticsearch:v2.3.1 elasticsearch -Des.node.name=$nodename -Des.cluster.name=$cluster -Des.discovery.zen.ping.unicast.hosts=node1
+  docker run -d --hostname=$nodename --name=$nodename --net=es-bridge afterqcd/elasticsearch:v2.3.1 elasticsearch -Des.node.name=$nodename -Des.cluster.name=$cluster -Des.discovery.zen.ping.unicast.hosts=node1 -Des.script.engine.groovy.inline.update=on
 done
 sleep 3s
 echo "Cluster is running now, url is http://localhost:9200"
